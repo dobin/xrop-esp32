@@ -42,6 +42,8 @@
 
 #define elf_tdata(bfd)		((bfd) -> tdata.elf_obj_data)
 
+int nocolor = 0;
+
 // Print version
 void print_version(){
     printf("%s %s \n", XNAME, VERSION);
@@ -114,8 +116,6 @@ int handle_execable(char * infile, size_t depth, char ** re){
     Elf_Internal_Phdr *p;
     seginfo_t * exec_segments = NULL; // list of executable segments only used with ELF
     size_t num_segments = 0;
-
-	printf("Handle executable\n");
 
     bfdh = bfd_openr(infile, NULL);
     if(!bfdh){
@@ -232,7 +232,11 @@ int handle_execable(char * infile, size_t depth, char ** re){
 	if((flags & SEC_LOAD) && (flags & SEC_CODE)){
             // some other file format
             printf("\n");
-            printf("\e[32m -> [ %s ]\e[m\n", bfd_section_name(bfdh, section));
+	    if (nocolor) {
+            	printf("[ %s ]\n", bfd_section_name(bfdh, section));
+	    } else {
+            	printf("\e[32m -> [ %s ]\e[m\n", bfd_section_name(bfdh, section));
+	    }
 
             cfg.arch = arch;
             cfg.bits = bits;
@@ -354,6 +358,9 @@ int main(int argc, char **argv){
                 }
                 re[re_idx++] = optarg;
                 break;
+            case 'n':
+		nocolor=1;
+		break;
             default:
             case '?':
                 print_usage();

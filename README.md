@@ -10,7 +10,6 @@ I fixed jsandin/xrop, and created this repo. Fixes include
 - re-added plain output
 
 
-
 ## Build Instructions
 ```
 make
@@ -23,3 +22,6 @@ make
 ./xrop ../mongoose-os/myfirstApp/build/objs/fw.elf 
 ```
 
+## Notes 
+
+This repo is dirty, but works. Sorry about the gigantic size, it contains a copy of binutils. 

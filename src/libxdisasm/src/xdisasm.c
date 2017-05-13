@@ -230,6 +230,7 @@ void copy_bytes(char * dest, char * src, unsigned int siz){
 // Formatter for address in memory referencing instructions
 void override_print_address(bfd_vma addr, struct disassemble_info *info){
     sprintf(currptr, COLADDR "%p" COLEND, (void *) addr);
+    //sprintf(currptr, COLADDR "%p" COLEND, (void *) addr);
 }
 
 // void*, char * -> int
@@ -348,9 +349,6 @@ insn_t * disassemble_one(unsigned long long vma, char * rawbuf, size_t buflen, i
     }
 
     curri->vma = pos;
-
-//printf("POS: 0x%x  DIS: %p  DIS->Buffer_vma: %p  dis->buffer: %p dis->buffer_length: %x\n", (unsigned int) pos, (void *) dis, (void *) dis->buffer_vma, (void *) dis->buffer, (unsigned int) dis->buffer_length);
-	fflush(stdout);
 
     int size = disas((bfd_vma) pos, dis);
     curri->instr_size = size;
