@@ -28,10 +28,17 @@ unsigned int xtensa_child_index_for_size(unsigned int inst_size) {
     return inst_size - XTENSA_MIN_INSTR_SIZE;
 }
 
+
+
 // char *, int
 // Check if the given instruction is a gadget end sequence
 int is_xtensa_end(insn_t *i){
-    if(strstr(i->decoded_instrs, "ret") || strstr(i->decoded_instrs, "retw.n") || strstr(i->decoded_instrs, "ret.n") || strstr(i->decoded_instrs, "jx") || strstr(i->decoded_instrs, "callx0")) {
+    if(strstr(i->decoded_instrs, "ret") 
+	|| strstr(i->decoded_instrs, "retw.n") 
+	|| strstr(i->decoded_instrs, "ret.n") 
+	|| strstr(i->decoded_instrs, "retw") 
+	|| strstr(i->decoded_instrs, "jx") 
+	|| strstr(i->decoded_instrs, "callx0")) {
     //if((strstr(i->decoded_instrs, "ret") && !strstr(i->decoded_instrs, "retw")) || strstr(i->decoded_instrs, "jx") || strstr(i->decoded_instrs, "callx0")) {
         return 1;
     }
